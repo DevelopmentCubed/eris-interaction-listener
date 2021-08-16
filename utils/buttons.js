@@ -138,8 +138,8 @@ class Buttons {
         custom_id: customIDs[i],
         emoji: {
           name: this.parsing.parseEmoji(emojis[i]).name,
-          name: this.parsing.parseEmoji(emojis[i]).id,
-          name: this.parsing.parseEmoji(emojis[i]).animated,
+          id: this.parsing.parseEmoji(emojis[i]).id,
+          animated: this.parsing.parseEmoji(emojis[i]).animated,
         }
       });
     }
