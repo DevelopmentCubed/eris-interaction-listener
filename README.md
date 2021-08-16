@@ -99,9 +99,9 @@ this.listener.buttons.addButtons(number, [labels], [styles], [customIDs]);
 [
       {
         type: 2,
-        label: label[0],
-        style: style[0],
-        custom_id: customID[0]
+        label: label[i],
+        style: style[i],
+        custom_id: customID[i]
       },
 ]
 
@@ -111,9 +111,9 @@ this.listener.buttons.addURLButtons(number, [labels], [urls]); //defaults style 
 [
       {
         type: 2,
-        label: label[0],
+        label: label[i],
         style: 5,
-        url: url[0]
+        url: url[i]
       },
 ]
 ```

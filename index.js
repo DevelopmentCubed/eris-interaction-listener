@@ -1,6 +1,8 @@
 const Constants = require('./utils/constanst');
-const Logger = require('@developmentcubed/logger');
 const Buttons = require('./utils/buttons');
+const Logger = require('@developmentcubed/logger');
+const Parsing = require('./utils/parsing');
+
 const { nanoid } = require('nanoid');
 
 /**
@@ -18,16 +20,22 @@ class InteractionListener {
     this.constants = new Constants();
 
     /**
+     * The Buttons class
+     * @type {Buttons}
+     */
+    this.buttons = new Buttons(this);
+
+    /**
      * The Logger class
      * @type {Logger}
      */
     this.logger = new Logger();
 
     /**
-     * The Buttons class
-     * @type {Buttons}
+     * The Parsing class
+     * @type {Parsing}
      */
-    this.buttons = new Buttons(this);
+    this.parsing = new Parsing(this);
 
     this.eventListeners = [];
   }
