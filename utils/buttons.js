@@ -137,9 +137,9 @@ class Buttons {
         style: this.constants.style[styles[i]],
         custom_id: customIDs[i],
         emoji: {
-          name: this.parsing.parseEmoji(emoji[i]).name,
-          name: this.parsing.parseEmoji(emoji[i]).id,
-          name: this.parsing.parseEmoji(emoji[i]).animated,
+          name: this.parsing.parseEmoji(emojis[i]).name,
+          name: this.parsing.parseEmoji(emojis[i]).id,
+          name: this.parsing.parseEmoji(emojis[i]).animated,
         }
       });
     }
