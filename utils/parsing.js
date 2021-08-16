@@ -1,8 +1,5 @@
 class Parsing {
-  /**
-   * Imports main index file of the package
-   * @param {import('../InteractionListener')} caller
-   */
+  /** @param {import('../index')} caller */
   constructor(caller) {
     this.bot = caller.bot;
     this.constants = caller.constants;
@@ -11,7 +8,6 @@ class Parsing {
 
   /**
    * Parse an emoji
-   *
    * @param {string} emoji
    * @returns
    * @memberof Parsing

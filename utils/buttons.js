@@ -1,8 +1,5 @@
 class Buttons {
-  /**
-   * Imports main index file of the package
-   * @param {import('../InteractionListener')} caller
-   */
+  /** @param {import('../index')} caller */
   constructor(caller) {
     this.bot = caller.bot;
     this.constants = caller.constants;
@@ -26,7 +23,7 @@ class Buttons {
         components: [],
       },
     ];
-
+    
     if (number > 5) return this.logger.error("You can't have more than 5 buttons per Action Row");
     if (number > labels.length) return this.logger.error("You're missing labels in your array");
     if (number < labels.length) return this.logger.error('You have too many labels in your array');
@@ -146,7 +143,7 @@ class Buttons {
         }
       });
     }
-
+    
     return newButtons;
   }
 }
