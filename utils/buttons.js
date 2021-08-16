@@ -100,7 +100,7 @@ class Buttons {
       newButtons.push({
         type: 2,
         label: labels[i],
-        style: this.constants.styles['url'],
+        style: this.constants.style['url'],
         url: urls[i],
       });
     }
@@ -137,7 +137,7 @@ class Buttons {
       newButtons.push({
         type: 2,
         label: labels ? labels[i] : '',
-        style: this.constants.styles[styles[i]],
+        style: this.constants.style[styles[i]],
         custom_id: customIDs[i],
         emoji: {
           name: this.parsing.parseEmoji(emoji[i]).name,
