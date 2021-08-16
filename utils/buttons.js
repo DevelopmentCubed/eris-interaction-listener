@@ -75,7 +75,14 @@ class Buttons {
       });
     }
 
-    return { ...newButtons };
+    // const buttonObject = {}
+    // for (let i = 0; i < number; i++) {
+    //     if (newButtons[i] !== undefined) buttonObject[i] = newButtons[i];
+    // }
+
+ 
+
+    return newButtons;
   }
 
   /**
