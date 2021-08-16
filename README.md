@@ -78,7 +78,7 @@ this.listener.buttons.addActionRowButtons(3, ['Back', 'Delete', 'Forward], ['blu
 
 ```
 this.bot.createMessage(channel.id {
-  context: '',
+  content: '',
   components: this.listener.buttons.addActionRowButtons(3, ['Back', 'Delete', 'Forward], ['blurple', 'red', 'blurple'], ['back', 'delete', 'forward']);
   embed: {
     title: 'Title',
