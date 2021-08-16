@@ -29,7 +29,7 @@ class Buttons {
     if (number !== styles.length) return this.logger.error("You're missing styles in your array");
     if (number !== customIDs.length) return this.logger.error("You're missing customIDs in your array");
 
-    for (let i = 0; i < number - 1; i++) {
+    for (let i = 0; i < number; i++) {
       newButtons[0].components.push({
         type: 2,
         label: labels[i],
@@ -56,7 +56,7 @@ class Buttons {
     if (number !== styles.length) return this.logger.error("You're missing styles in your array");
     if (number !== customIDs.length) return this.logger.error("You're missing customIDs in your array");
 
-    for (let i = 0; i < number - 1; i++) {
+    for (let i = 0; i < number; i++) {
       newButtons.push({
         type: 2,
         label: labels[i],
@@ -81,7 +81,7 @@ class Buttons {
     if (number !== labels.length) return this.logger.error("You're missing labels in your array");
     if (number !== urls.length) return this.logger.error("You're missing urls in your array");
 
-    for (let i = 0; i < number - 1; i++) {
+    for (let i = 0; i < number; i++) {
       newButtons.push({
         type: 2,
         label: labels[i],
