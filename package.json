@@ -1,6 +1,6 @@
 {
   "name": "eris-interaction-listener",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "An easy interaction listener for the Eris Library",
   "main": "index.js",
   "scripts": {
