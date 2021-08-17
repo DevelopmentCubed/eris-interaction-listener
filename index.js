@@ -45,7 +45,7 @@ class InteractionListener {
    * Starts up the package
    * @memberof InteractionListener
    */
-  start() {
+  startListener() {
     const self = this;
     self.bot.on('rawWS', (packet, id) => {
       self.handler(self, packet, id);
