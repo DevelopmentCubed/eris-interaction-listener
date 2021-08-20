@@ -8,6 +8,7 @@ class Parsing {
 
   /**
    * Parse an emoji
+   * 
    * @param {string} emoji
    * @returns
    * @memberof Parsing

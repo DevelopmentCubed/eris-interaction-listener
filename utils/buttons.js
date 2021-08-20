@@ -9,6 +9,7 @@ class Buttons {
 
   /**
    * Makes new action row with up to 5 buttons
+   * 
    * @param {number} number amount of buttons (limit 5)
    * @param {Array} label Array of labels
    * @param {Array} style Array of styles
@@ -46,6 +47,7 @@ class Buttons {
 
   /**
    * Makes new buttons
+   * 
    * @param {number} number amount of buttons (limit 5)
    * @param {Array} label Array of labels
    * @param {Array} style Array of styles
@@ -78,6 +80,7 @@ class Buttons {
 
   /**
    * Makes new URL buttons
+   * 
    * @param {number} number amount of buttons (limit 5)
    * @param {Array} label Array of labels
    * @param {Array} urls Array of urls
@@ -107,6 +110,7 @@ class Buttons {
 
   /**
    * Makes new URL buttons
+   * 
    * @param {number} number amount of buttons (limit 5)
    * @param {Array} emojis Array of emoji strings
    * @param {Array} styles Array of styles

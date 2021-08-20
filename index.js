@@ -43,6 +43,7 @@ class InteractionListener {
 
   /**
    * Starts up the package
+   * 
    * @memberof InteractionListener
    */
   startListener() {
@@ -54,11 +55,12 @@ class InteractionListener {
 
   /**
    * The handler of each component
+   * 
    * @memberof InteractionListener
    */
-  handler(self, packet, id) {
+  async handler(self, packet, id) {
     if (packet.t !== 'INTERACTION_CREATE') return;
-    this.SendPost(packet.d.id, packet.d.token);
+    await this.SendPost(packet.d.id, packet.d.token);
     const keys = Object.keys(this.eventListeners);
     for (let i = 0; i < keys.length; i++) {
       const element = this.eventListeners[keys[i]];
@@ -68,12 +70,13 @@ class InteractionListener {
 
   /**
    * Sends a confirmation post for each interation
+   * 
    * @memberof InteractionListener
    */
-  SendPost(id, token) {
+  async SendPost(id, token) {
     const endpoint = `/interactions/${id}/${token}/callback`;
     try {
-      this.bot.requestHandler.request('POST', endpoint, true, {
+      await this.bot.requestHandler.request('POST', endpoint, true, {
         type: 7,
       });
     } catch (error) {
@@ -84,6 +87,7 @@ class InteractionListener {
 
   /**
    * Adds a listener for each component
+   * 
    * @memberof InteractionListener
    */
   addListener(event) {
@@ -94,6 +98,7 @@ class InteractionListener {
 
   /**
    * Removes a listener for each component
+   * 
    * @memberof InteractionListener
    */
   removeListener(eventID) {
