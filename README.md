@@ -10,7 +10,7 @@ A simple handler for button interactions with eris.
 
 ```js
 const Eris = require('eris');
-const Interactions = require('./');
+const Interactions = require('eris-interaction-listener');
 
 const bot = new Eris('token');
 
