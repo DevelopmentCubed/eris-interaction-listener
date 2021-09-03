@@ -1,137 +1,86 @@
 # What is this?
 
 A simple handler for button interactions with eris.
-(support for selection menus to come soon)
 
 # Installation
 
-`npm i eris-interaction-listener --save`
+`npm i -S eris-interaction-listener`
 
-Then..
+# Example
 
-```
-const Listener = require('eris-interaction-listener');
+```js
+const Eris = require('eris');
+const Interactions = require('./');
 
-this.listener = new Listener(this.bot);
+const bot = new Eris('token');
 
-// on ready
-this.listener.startListener();
+const interactions = new Interactions(bot);
 
-//in command
-//to start
-const ID = this.listener.addListener(handler); //handler is where the event starts to listen for your unique custom_id's
+bot.on('messageCreate', async (event) => {
+	if (event.author.bot) return;
 
-//if using this for something like pagination, upon deletion or timeout
-this.listener.removeListener(ID);
+	if (event.content === '!buttons') {
+		const message = await bot.createMessage(event.channel.id, {
+			content: 'Awesome buttons',
+			components: [
+				interactions.createActionRow(
+					interactions.createButton('Option 1', 'blurple', 'option1'),
+					interactions.createButton('Option 2', 'grey', 'option2'),
+					interactions.createButton('Option 3', 'red', 'option3'),
+					interactions.createButton('Option 4', 'green', 'option4'),
+				),
+			],
+		});
 
-```
+		let timer = null;
 
-# Making buttons
+		const handle = async (interaction) => {
+			if (interaction.message.id !== message.id || interaction.member.user.id !== event.author.id) return;
+			interactions.confirmInteraction(interaction, 'UPDATE_MESSAGE');
+			message.edit({
+				content: `You clicked the button with custom ID \`${interaction.customID}\``,
+				components: [],
+			});
+			interactions.off('interaction', handle);
+			clearTimeout(timer);
+		};
 
-```
-//styles = { blurple, grey/gray, green, red, url }
+		interactions.on('interaction', handle);
 
-this.listener.buttons.addActionRowButtons(number, labels, styles, customIDs);
+		timer = setTimeout(() => {
+			interactions.off('interaction', handle);
+			message.edit({ content: 'Time out', components: [] });
+		}, 6e4);
+	}
 
-  /**
-   * {number} = amount of buttons (limit 5)
-   * [labes] = Array of labels
-   * [styles] = Array of styles
-   * [custom_IDs] = Array of custom ids
-   */
-```
+	if (event.content === '!select') {
+		const message = await bot.createMessage(event.channel.id, {
+			content: 'Awesome menu',
+			components: [interactions.createActionRow(interactions.createSelectMenu('menu', 'Pick an option', 1, 1, [interactions.createMenuItem('Dogs', 'dog', 'You like dogs', '🐶'), interactions.createMenuItem('Cats', 'cats', 'You like cats', '🐱')]))],
+		});
 
-# Examples:
+		let timer = null;
 
-```
-this.listener.buttons.addActionRowButtons(3, ['Back', 'Delete', 'Forward], ['blurple', 'red', 'blurple'], ['back', 'delete', 'forward']);
+		const handle = async (interaction) => {
+			if (interaction.message.id !== message.id || interaction.member.user.id !== event.author.id) return;
+			interactions.confirmInteraction(interaction, 'UPDATE_MESSAGE');
+			message.edit({
+				content: `You like ${interaction.values[0] === 'dog' ? 'dogs' : 'cats'} more.`,
+				components: [],
+			});
+			interactions.off('interaction', handle);
+			clearTimeout(timer);
+		};
 
-//returns
-[
-  {
-    type: 1,
-    components: [
-      {
-        type: 2,
-        label: 'Back',
-        style: 1, //blurple
-        custom_id: 'back'
-      },
-            {
-        type: 2,
-        label: 'Delete',
-        style: 4, //red
-        custom_id: 'delete'
-      },
-            {
-        type: 2,
-        label: 'Forward',
-        style: 1, //blurple
-        custom_id: 'forward'
-      },
-    ]
-  }
-]
-```
+		interactions.on('interaction', handle);
 
-# Usage
-
-```
-this.bot.createMessage(channel.id {
-  content: '',
-  components: this.listener.buttons.addActionRowButtons(3, ['Back', 'Delete', 'Forward], ['blurple', 'red', 'blurple'], ['back', 'delete', 'forward']);
-  embed: {
-    title: 'Title',
-    color: 0,
-    description: 'Description'
-  },
+		timer = setTimeout(() => {
+			interactions.off('interaction', handle);
+			message.edit({ content: 'Time out', components: [] });
+		}, 6e4);
+	}
 });
-```
 
-# Other
+bot.connect();
 
-```
-this.listener.buttons.addActionRowButtons(number, [labels], [styles], [customIDs]);
-//returns as seen above
-
-this.listener.buttons.addButtons(number, [labels], [styles], [customIDs]);
-//returns
-[
-      {
-        type: 2,
-        label: label[i],
-        style: style[i],
-        custom_id: customID[i]
-      },
-]
-
-
-this.listener.buttons.addURLButtons(number, [labels], [urls]); //defaults style to URL
-//returns
-[
-      {
-        type: 2,
-        label: label[i],
-        style: 5,
-        url: url[i]
-      },
-]
-
-//Emoji's must be a full string (if custom) or Unidode per string in the array (Ex: ['<:thisEmoji:12345678910>'])
-
-this.listener.buttons.addEmojiButtons((number, [emojis], [styles], [customIDs], [labels] = false)) //labels default to false, but can still be added
-//returns
-[
-      {
-        type: 2,
-        label: label ? label[i] : '',
-        style: style[i],
-        custom_id: customID[i],
-        emoji: {
-          name: emojiName, //(will be parsed from full string)
-          id: emojiID, //(will be parsed from full string)
-          animated: Boolean, //(will be parsed from full string)
-        }
-      },
-]
 ```

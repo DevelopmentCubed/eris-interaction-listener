@@ -1,6 +1,6 @@
 {
   "name": "eris-interaction-listener",
-  "version": "1.0.11",
+  "version": "2.0.0",
   "description": "An easy interaction listener for the Eris Library",
   "main": "index.js",
   "scripts": {
@@ -11,10 +11,17 @@
     "components",
     "interactions"
   ],
-  "author": "Hiekki",
-  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DevelopmentCubed/eris-interaction-listener.git"
+  },
+  "bugs": {
+    "url": "https://github.com/DevelopmentCubed/eris-interaction-listener/issues"
+  },
+  "homepage": "https://github.com/DevelopmentCubed/eris-interaction-listener#readme",
+  "author": "Development Cubed",
+  "license": "GPL-3.0-or-later",
   "dependencies": {
-    "@developmentcubed/logger": "^1.0.0",
-    "nanoid": "^3.1.25"
+    "eventemitter3": "^4.0.7"
   }
 }
