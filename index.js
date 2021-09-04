@@ -84,16 +84,13 @@ class Interactions extends EventEmitter {
 	 * @param {InteractionObject} interaction
 	 * @param {'PONG' | 'CHANNEL_MESSAGE_WITH_SOURCE' | 'DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE' | 'DEFERRED_UPDATE_MESSAGE' | 'UPDATE_MESSAGE'} type
 	 * @memberof Interactions
+	 * @returns {Promise}
 	 */
-	async confirmInteraction(interaction, type) {
+	confirmInteraction(interaction, type) {
 		const types = ['PONG', 'CHANNEL_MESSAGE_WITH_SOURCE', 'DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE', 'DEFERRED_UPDATE_MESSAGE', 'UPDATE_MESSAGE'];
-		if (!types.includes(type)) throw new Error(`Type must be one of the following: ${types.join(', ')}`);
+		if (!types.includes(type)) throw new TypeError(`Type must be one of the following: ${types.join(', ')}`);
 
-		try {
-			await this.client.requestHandler.request('POST', `/interactions/${interaction.id}/${interaction.token}/callback`, true, { type: this.interactionCallbackType[type] });
-		} catch (error) {
-			console.error(`Error confirming interaction ${interaction.id}`, error);
-		}
+		return this.client.requestHandler.request('POST', `/interactions/${interaction.id}/${interaction.token}/callback`, true, { type: this.interactionCallbackType[type] });
 	}
 
 	/**
