@@ -36,7 +36,15 @@ bot.on('messageCreate', async (event) => {
 
 		const handle = async (interaction) => {
 			if (interaction.message.id !== message.id || interaction.member.user.id !== event.author.id) return;
-			interactions.confirmInteraction(interaction, 'UPDATE_MESSAGE');
+			try{
+
+				await interactions.confirmInteraction(interaction, 'UPDATE_MESSAGE');
+			}
+			catch(err){
+				return console.error(err);
+				// failed to ACK an interaction. Either log it or send in a crash report log.
+			}
+
 			message.edit({
 				content: `You clicked the button with custom ID \`${interaction.customID}\``,
 				components: [],
@@ -63,7 +71,15 @@ bot.on('messageCreate', async (event) => {
 
 		const handle = async (interaction) => {
 			if (interaction.message.id !== message.id || interaction.member.user.id !== event.author.id) return;
-			interactions.confirmInteraction(interaction, 'UPDATE_MESSAGE');
+			try{
+
+				await interactions.confirmInteraction(interaction, 'UPDATE_MESSAGE');
+			}
+			catch(err){
+				return console.error(err);
+				// Failed to ACK an interaction. Either log it or send in a crash report log.
+			}
+
 			message.edit({
 				content: `You like ${interaction.values[0] === 'dog' ? 'dogs' : 'cats'} more.`,
 				components: [],
