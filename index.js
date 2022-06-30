@@ -41,6 +41,11 @@ class Interactions extends EventEmitter {
 			link: 5,
 		};
 
+		this.textFieldStyles = {
+			short: 1,
+			paragraph: 2
+		}
+
 		this.client = client;
 		this.client.on('rawWS', (packet) => {
 			if (packet.t === 'INTERACTION_CREATE') this.handle(packet.d);
@@ -184,6 +189,40 @@ class Interactions extends EventEmitter {
 			value,
 			description,
 			emoji,
+		};
+	}
+
+	/**
+	 * Create an interactive Text Field
+	 *
+	 * @param {string} ID - Custom ID for this Text Field
+	 * @param {string} label - Label for this Text Field
+	 * @param {'short' | 'paragraph'} style - Text Field Style
+	 * @param {string} placeholder - Text shown to user when they haven't entered anything
+	 * @param {Boolean} required - Is this required?
+	 * @param {string} value - text pre-filled in the text field
+	 * @param {number} min - Minimum amount of characters the user has to enter
+	 * @param {number} max - Maximum amount of characters the user has to enter
+	 * @return {*}
+	 * @memberof Interactions
+	 */
+	createTextField(ID, label, style=1, placeholder='Enter Text',required=false, value='', min=0, max=4000) {
+		min = parseInt(min);
+		max = parseInt(max);
+		if (!ID || !style || !label) throw new Error('Invalid select params.');
+		if (!this.textFieldStyles[style]) style = 1;
+		else style = this.textFieldStyles[style];
+
+		return {
+			type: 4,
+			custom_id: ID,
+			label,
+			style,
+			placeholder,
+			required,
+			value,
+			min_length: min,
+			max_length: max
 		};
 	}
 
