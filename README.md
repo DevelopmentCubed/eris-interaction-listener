@@ -4,4 +4,4 @@ A simple helper for component interactions.
 
 # Installation
 
-`npm i @developmentcubed/component-helper`
+`npm i cubed-component-helper`

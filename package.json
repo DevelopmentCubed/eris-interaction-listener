@@ -1,6 +1,6 @@
 {
-  "name": "@developmentcubed/component-helper",
-  "version": "1.0",
+  "name": "cubed-component-helper",
+  "version": "1.0.1",
   "description": "A simple helper for component interactions.",
   "main": "index.js",
   "scripts": {
