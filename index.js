@@ -1,38 +1,5 @@
-const EventEmitter = require('eventemitter3');
-
-/**
- * @typedef {Object} InteractionObject
- * @property {string} channelID - Channel interaction happened in
- * @property {string} guildID - Guild interaction happened in
- * @property {string} id - ID of interaction
- * @property {number} componentType - Component Type
- * @property {string} customID - Custom ID of interaction
- * @property {string[] | undefined} values - Values from select menu
- * @property {object} member - Member interacting only present if ran in a guild
- * @property {object} user - User interacting only present if ran in DM
- * @property {object} message - Message object that the interaction is on
- * @property {string} token - Token of interaction
- * @property {number} type - Type of interaction
- * @property {number} version - Version?
- */
-
-class Interactions extends EventEmitter {
-	/**
-	 * Creates an instance of Interactions.
-	 * @param {import('eris').Client} client
-	 * @memberof Interactions
-	 */
-	constructor(client) {
-		super();
-
-		this.interactionCallbackType = {
-			PONG: 1,
-			CHANNEL_MESSAGE_WITH_SOURCE: 4,
-			DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE: 5,
-			DEFERRED_UPDATE_MESSAGE: 6,
-			UPDATE_MESSAGE: 7,
-		};
-
+class Interactions {
+	constructor() {
 		this.buttonStyles = {
 			blurple: 1,
 			grey: 2,
@@ -45,57 +12,6 @@ class Interactions extends EventEmitter {
 			short: 1,
 			paragraph: 2
 		}
-
-		this.client = client;
-		this.client.on('rawWS', (packet) => {
-			if (packet.t === 'INTERACTION_CREATE') this.handle(packet.d);
-		});
-	}
-
-	/**
-	 * @private
-	 * @param {any} packet - Raw websocket packet sent by Discord.
-	 * @memberof Interactions
-	 * @fires Interactions#interaction
-	 */
-	handle(packet) {
-		const object = {
-			channelID: packet.channel_id,
-			guildID: packet.guild_id,
-			id: packet.id,
-			componentType: packet.data.component_type,
-			customID: packet.data.custom_id,
-			values: packet.data.values,
-			member: packet.member,
-			user: packet.user,
-			message: packet.message,
-			token: packet.token,
-			type: packet.type,
-			version: packet.version,
-		};
-
-		/**
-		 * Interaction event
-		 *
-		 * @event Interactions#interaction
-		 * @type {InteractionObject}
-		 */
-		this.emit('interaction', object);
-	}
-
-	/**
-	 *	Confirm that an interaction has been received and handled
-	 *
-	 * @param {InteractionObject} interaction
-	 * @param {'PONG' | 'CHANNEL_MESSAGE_WITH_SOURCE' | 'DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE' | 'DEFERRED_UPDATE_MESSAGE' | 'UPDATE_MESSAGE'} type
-	 * @memberof Interactions
-	 * @returns {Promise}
-	 */
-	confirmInteraction(interaction, type) {
-		const types = ['PONG', 'CHANNEL_MESSAGE_WITH_SOURCE', 'DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE', 'DEFERRED_UPDATE_MESSAGE', 'UPDATE_MESSAGE'];
-		if (!types.includes(type)) throw new TypeError(`Type must be one of the following: ${types.join(', ')}`);
-
-		return this.client.requestHandler.request('POST', `/interactions/${interaction.id}/${interaction.token}/callback`, true, { type: this.interactionCallbackType[type] });
 	}
 
 	/**
@@ -206,7 +122,7 @@ class Interactions extends EventEmitter {
 	 * @return {*}
 	 * @memberof Interactions
 	 */
-	createTextField(ID, label, style=1, placeholder='Enter Text',required=false, value='', min=0, max=4000) {
+	createTextField(ID, label, style = 1, placeholder = 'Enter Text', required = false, value = '', min = 0, max = 4000) {
 		min = parseInt(min);
 		max = parseInt(max);
 		if (!ID || !style || !label) throw new Error('Invalid select params.');

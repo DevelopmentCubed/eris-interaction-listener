@@ -1,13 +1,12 @@
 {
-  "name": "eris-interaction-listener",
-  "version": "2.1.0",
-  "description": "An easy interaction listener for the Eris Library",
+  "name": "@developmentcubed/component-helper",
+  "version": "1.0",
+  "description": "A simple helper for component interactions.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "eris",
     "components",
     "interactions"
   ],
@@ -20,8 +19,5 @@
   },
   "homepage": "https://github.com/DevelopmentCubed/eris-interaction-listener#readme",
   "author": "Development Cubed",
-  "license": "GPL-3.0-or-later",
-  "dependencies": {
-    "eventemitter3": "^4.0.7"
-  }
+  "license": "GPL-3.0-or-later"
 }
