@@ -31,12 +31,12 @@ class Interactions {
 	 * @param {string} label - Button text user gets to see
 	 * @param {'blurple' | 'grey' | 'green' | 'red'} style - Style or color of button
 	 * @param {string} [ID=null] - Custom ID of button.
-	 * @param {string} [URL=null] - URL of button
+	 * @param {string} [emoji=null] - Custom Emoji of button.
 	 * @return {*}
 	 * @memberof Interactions
 	 */
-	createButton(label, style, ID = null, URL = null, emoji = null) {
-		if (!label || !style || (!ID && !URL)) throw new Error('Invalid button params.');
+	createButton(label, style, ID = null, emoji = null) {
+		if (!label || !style || !ID) throw new Error('Invalid button params.');
 		if (!this.buttonStyles[style]) style = 'blurple';
 
 		if (emoji) emoji = this.formatEmoji(emoji);
@@ -49,15 +49,26 @@ class Interactions {
 				custom_id: ID,
 				emoji,
 			};
+	}
 
-		if (URL)
-			return {
-				type: 2,
-				label,
-				style: this.buttonStyles.link,
-				url: URL,
-				emoji,
-			};
+	/**
+	 * Create an interaction button url object
+	 *
+	 * @param {string} label - Button text user gets to see
+	 * @param {string} [URL] - URL of button
+	 * @param {string} [ID=null] - Custom ID of button.
+	 * @return {*}
+	 * @memberof Interactions
+	 */
+	createURLButton(label, URL) {
+		if (!label || !URL) throw new Error('Invalid button params.');
+
+		return {
+			type: 2,
+			label,
+			style: this.buttonStyles.link,
+			url: URL
+		};
 	}
 
 	/**
